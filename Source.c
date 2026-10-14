@@ -1,10 +1,21 @@
+#define _USE_MATH_DEFINES
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <locale.h>
+#include <math.h>
+
+DZ_2lab();
+
 int main()
 {
-	setlocale(LC_CTYPE, "RUS");
+	setlocale(LC_CTYPE, "ru_RU.UTF-8");
 	pr3();
+	double half_pi = M_PI_2;
+	printf("%f\n", half_pi);
+	DZ_2lab();
+	return 0;
 }
+
 int pr1()
 {
 	printf("123\n"); // подзадание 1
@@ -39,5 +50,37 @@ int pr3()
 {
 	int n = 4, L = 433, k = 5, m = 1;
 	printf("Дано:\n	 %d\n	 %d\n	_________\nОтвет:\n	+%0*.*f", n, L, k, m, 4 / 433.);
+	return 0;
+}
+
+int DZ_2lab()
+{
+	double h, A, k;
+	printf("Введите высоту горки h (метров): ");
+	if (scanf("%lf", &h) != 1 || h <= 0) {
+		printf("Ошибка ввода высоты.\n");
+		return 1;
+	}
+
+	printf("Введите угол наклона A (в радианах): ");
+	if (scanf("%lf", &A) != 1 || A <= 0 || A >= M_PI_2) {
+		printf("Ошибка ввода угла (угол должен быть от 0 до PI/2).\n");
+		return 1;
+	}
+
+	printf("Введите коэффициент трения k: ");
+	if (scanf("%lf", &k) != 1 || k < 0) {
+		printf("Ошибка ввода коэффициента трения.\n");
+		return 1;
+	}
+
+	if (tan(A) <= k) {
+		printf("Санки не сдвинутся с места (сила трения слишком велика).\n");
+	}
+	else {
+		double distance = h / sin(A);
+		printf("\nПуть, который пройдут санки по горке: %.2f метров\n", distance);
+	}
+
 	return 0;
 }
